@@ -138,7 +138,7 @@ python -m pytest 01_Blog/backend/tests/test_blog_api.py -v
 All diagrams required by the FalconXoft evaluation specification have been exported and provided in multiple formats for maximum defensibility:
 
 1. **System Architecture Diagram:** [`02 - architecture.pdf`](file:///d:/Weekend1_Talha%20Ahmed/01_Blog/02%20-%20architecture.pdf)
-   - **Editable Lucidchart URL:** [Open in Lucidchart](https://lucid.app/lucidchart/6ef90429-d6a5-4585-8b7f-2caaf728b0fc/edit?invitationId=inv_9b2b97cf-501b-429e-993d-a24c927fa54c)
+   - **Editable Lucidchart URL:** [Open in Lucidchart](https://lucid.app/lucidchart/6ef90429-d6a5-4585-8b7f-2caaf728b0fc/edit?invitationId=inv_9b2b97cf-501b-429e-993d-a24c927fa54c&page=yofE0ycUHjJN#)
    - Source code backup: `lucidchart_diagrams/01_ARCHITECTURE_DIAGRAM.mermaid`
 2. **Database ERD & Schema:** [`03 - database-design.pdf`](file:///d:/Weekend1_Talha%20Ahmed/01_Blog/03%20-%20database-design.pdf)
    - **Editable Lucidchart URL:** [Open in Lucidchart](https://lucid.app/lucidchart/68348039-5c22-4638-9fb4-e1b0b98b3018/edit?invitationId=inv_c1318404-183d-4820-9dcc-30364c92b0bf)
