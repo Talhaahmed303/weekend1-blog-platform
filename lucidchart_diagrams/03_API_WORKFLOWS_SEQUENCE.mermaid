@@ -1,0 +1,78 @@
+%% =============================================================================
+%% FALCONXOFT INTERN EVALUATION — PROJECT 01: BLOG PLATFORM
+%% API Sequence Workflows (Lucidchart / Mermaid Compatible)
+%% Complete Success Path and Three Failure / Security Paths
+%% Candidate: Talha Ahmed | Date: October 2026
+%% =============================================================================
+
+sequenceDiagram
+    autonumber
+    actor Client as 🌐 Client (Next.js 14)
+    participant API as 🚀 DRF API Gateway (Port 8001)
+    participant Auth as 🔐 JWT & RBAC Guard
+    participant DB as 🐘 PostgreSQL 18 (blog_db)
+
+    %% -------------------------------------------------------------------------
+    %% PART 1: COMPLETE SUCCESS PATH
+    %% -------------------------------------------------------------------------
+    rect rgb(240, 253, 244)
+        Note over Client, DB: PART 1: COMPLETE SUCCESS PATH (Author Write -> Publish -> Community Comment)
+        
+        %% Step 1: Login
+        Client->>+API: POST /api/auth/login/ {username: "talha_author", password: "***"}
+        API->>+DB: SELECT * FROM authentication_user WHERE username='talha_author'
+        DB-->>-API: User record (role='author', password_hash)
+        API-->>-Client: HTTP 200 OK {access: "eyJ...", refresh: "eyJ...", role: "author"}
+        Note over Client: Client persists JWT in localStorage & configures Axios headers
+
+        %% Step 2: Create Draft
+        Client->>+API: POST /api/posts/ [Bearer JWT]<br/>{title: "Raft Consensus", content: "...", status: "draft"}
+        API->>+Auth: Verify JWT signature & extract user_id
+        Auth-->>-API: Valid token (user_id=2, role='author')
+        API->>+DB: INSERT INTO posts_post (title, slug, status='draft', author_id=2, ...)
+        DB-->>-API: Saved record (id=10, status='draft')
+        API-->>-Client: HTTP 201 Created {id: 10, slug: "raft-consensus", status: "draft"}
+
+        %% Step 3: Publish Draft
+        Client->>+API: POST /api/posts/10/publish/ [Bearer JWT]
+        API->>+Auth: Check ownership (request.user.id == post.author_id)
+        Auth-->>-API: Permission Granted
+        API->>+DB: UPDATE posts_post SET status='published', published_at=NOW() WHERE id=10
+        DB-->>-API: Row updated (1 row affected)
+        API-->>-Client: HTTP 200 OK {id: 10, status: "published", published_at: "2026-10-18T..."}
+        Note over Client, DB: Post is now live on the public feed for all readers!
+
+        %% Step 4: Community Comment
+        Client->>+API: POST /api/comments/ [Bearer JWT]<br/>{post: 10, content: "Great technical breakdown!"}
+        API->>+DB: SELECT status FROM posts_post WHERE id=10
+        DB-->>-API: status='published' (validation passed)
+        API->>+DB: INSERT INTO comments_comment (post_id=10, author_id=2, content="...")
+        DB-->>-API: Saved comment (id=42, created_at=NOW())
+        API-->>-Client: HTTP 201 Created {id: 42, content: "...", author: {id: 2, username: "talha_author"}}
+    end
+
+    %% -------------------------------------------------------------------------
+    %% PART 2: COMPLETE FAILURE PATHS & EDGE CASES
+    %% -------------------------------------------------------------------------
+    rect rgb(254, 242, 242)
+        Note over Client, DB: PART 2: COMPLETE FAILURE PATHS & SECURITY GUARDS
+
+        %% Failure 1: Comment on Draft
+        Client->>+API: POST /api/comments/ [Bearer JWT] {post: 99, content: "Sneak preview comment"}
+        API->>+DB: SELECT status FROM posts_post WHERE id=99
+        DB-->>-API: status='draft'
+        Note over API: Validation Rule: Comments rejected on unpublished drafts
+        API-->>-Client: HTTP 400 Bad Request {"detail": "Cannot add comments to unpublished draft posts."}
+
+        %% Failure 2: Unauthorized Cross-Author Edit (BOLA / 403)
+        Client->>+API: PATCH /api/posts/10/ [Sara JWT]<br/>{title: "Malicious Edit by Peer"}
+        API->>+Auth: Evaluate IsAuthorOrAdminOrReadOnly (sara_writer != talha_author)
+        Auth-->>-API: Permission Denied (Not Owner & Not Admin)
+        API-->>-Client: HTTP 403 Forbidden {"detail": "You do not have permission to perform this action."}
+
+        %% Failure 3: Unauthenticated / Peer Draft Discovery (404 Isolation)
+        Client->>+API: GET /api/posts/secret-draft/ [Anonymous or Peer]
+        API->>+DB: SELECT * FROM posts_post WHERE slug='secret-draft' AND (status='published' OR author_id=None)
+        DB-->>-API: Empty Result (Draft hidden by PostViewSet queryset filter)
+        API-->>-Client: HTTP 404 Not Found {"detail": "No Post matches the given query."}
+    end

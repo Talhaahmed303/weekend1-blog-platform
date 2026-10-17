@@ -1,0 +1,83 @@
+%% =============================================================================
+%% FALCONXOFT INTERN EVALUATION — PROJECT 01: BLOG PLATFORM
+%% System Architecture Diagram (Lucidchart / Mermaid Compatible)
+%% Candidate: Talha Ahmed | Date: October 2026
+%% =============================================================================
+
+flowchart TD
+    subgraph CLIENT_TIER ["1. Presentation Layer (Client Machine / Browser)"]
+        Browser["🌐 Web Browser (Client)"]
+        NextApp["⚡ Next.js 14 (React 18 + TypeScript)<br/><b>Port 3001</b>"]
+        Browser -->|"HTTP / Interactive UX"| NextApp
+        
+        subgraph CLIENT_COMPONENTS ["Frontend Modules"]
+            FeedView["📰 Public Community Feed<br/>(status: published only)"]
+            StudioView["📁 My Posts Studio<br/>(Author Drafts & Management)"]
+            PostModal["✍️ Post Editor Modal<br/>(Local Image Upload + Presets)"]
+            CommentSec["💬 Live Comments Thread<br/>(Author & Admin Moderation)"]
+            DemoSwitcher["👥 Fast Demo User Switcher<br/>(Admin / Talha / Sara / Reader)"]
+        end
+        NextApp --- CLIENT_COMPONENTS
+        TokenStore[("🔑 LocalStorage<br/>JWT Access & Refresh")]
+        NextApp -.->|"Token Persistence"| TokenStore
+    end
+
+    subgraph NETWORK_BOUNDARY ["Communication Protocols & Security Boundary"]
+        RestCall["HTTPS / REST API Requests<br/><code>Authorization: Bearer &lt;JWT&gt;</code><br/>Content-Type: application/json"]
+        CorsGuard["🛡️ CORS Middleware<br/>Allowed Origins: http://localhost:3001"]
+    end
+
+    NextApp ==>|"REST Calls"| RestCall
+    RestCall ==>|"CORS Inspected"| CorsGuard
+
+    subgraph API_TIER ["2. Application & API Layer (Host Bare-Metal)"]
+        CorsGuard ==>|"Dispatched to DRF"| DRF["🚀 Django 5.2 + Django REST Framework<br/><b>Port 8001</b>"]
+        
+        subgraph SECURITY_GUARD ["Security & Permission Guards"]
+            JWTAuth["🔐 SimpleJWT Authentication<br/>(HMAC-SHA256 Token Verification)"]
+            RBAC["🛡️ Object-Level RBAC Guard<br/><code>IsAuthorOrAdminOrReadOnly</code>"]
+        end
+        DRF --> SECURITY_GUARD
+
+        subgraph CONTROLLERS ["Domain ViewSets & Business Logic"]
+            AuthAPI["👤 AuthViewSet<br/><code>/api/auth/login/, /register/</code>"]
+            PostAPI["📝 PostViewSet<br/><code>/api/posts/, /publish/</code><br/><i>Strict Draft Privacy Filtering</i>"]
+            CatAPI["🏷️ CategoryViewSet<br/><code>/api/categories/</code><br/><i>Post Count Aggregation</i>"]
+            ComAPI["💬 CommentViewSet<br/><code>/api/comments/</code><br/><i>Draft Comment Rejection Rule</i>"]
+            DocsAPI["📖 drf-spectacular<br/><code>/api/docs/, /openapi.yaml</code>"]
+        end
+        SECURITY_GUARD --> CONTROLLERS
+    end
+
+    subgraph DATABASE_TIER ["3. Persistent Data Layer (PostgreSQL 18)"]
+        DBEngine[("🐘 PostgreSQL 18 Engine<br/><b>Port 5432 | Database: blog_db</b>")]
+        
+        subgraph RELATIONAL_TABLES ["Relational Schema (3NF)"]
+            T_User["authentication_user<br/>PK: id | role: author, admin"]
+            T_Cat["posts_category<br/>PK: id | UQ: slug"]
+            T_Post["posts_post<br/>PK: id | FK: author_id, category_id<br/>status: draft, published"]
+            T_Com["comments_comment<br/>PK: id | FK: post_id, author_id<br/>ON DELETE CASCADE"]
+        end
+        DBEngine --- RELATIONAL_TABLES
+
+        subgraph DB_INDEXES ["Performance Indexes"]
+            Idx1["idx_post_status_pub (status, published_at DESC)"]
+            Idx2["idx_post_slug (slug UNIQUE)"]
+            Idx3["idx_comment_post_created (post_id, created_at)"]
+        end
+        RELATIONAL_TABLES --- DB_INDEXES
+    end
+
+    CONTROLLERS ==>|"psycopg2-binary / Parameterized SQL"| DBEngine
+    DBEngine ==>|"Query Results / Model Instances"| CONTROLLERS
+    DRF ==>|"JSON Response (HTTP 200, 201, 400, 403, 404)"| NextApp
+
+    classDef client fill:#E0F2FE,stroke:#0284C7,stroke-width:2px,color:#0369A1;
+    classDef api fill:#EEF2FF,stroke:#4F46E5,stroke-width:2px,color:#3730A3;
+    classDef db fill:#F0FDF4,stroke:#16A34A,stroke-width:2px,color:#15803D;
+    classDef security fill:#FEF3C7,stroke:#D97706,stroke-width:1.5px,color:#92400E;
+
+    class NextApp,FeedView,StudioView,PostModal,CommentSec,DemoSwitcher client;
+    class DRF,AuthAPI,PostAPI,CatAPI,ComAPI,DocsAPI api;
+    class DBEngine,T_User,T_Cat,T_Post,T_Com,Idx1,Idx2,Idx3 db;
+    class JWTAuth,RBAC,CorsGuard security;
