@@ -4,6 +4,10 @@
 **Evaluation:** FalconXoft 15-Day Intern Performance Evaluation — Weekend 1  
 **Target Ports:** Backend API: `http://127.0.0.1:8001` | Frontend: `http://localhost:3001`  
 **Database:** PostgreSQL 18 (`blog_db`) on `127.0.0.1:5432`  
+**GitHub Repository:** [https://github.com/Talhaahmed303/weekend1-blog-platform](https://github.com/Talhaahmed303/weekend1-blog-platform)  
+**Live Editable Architecture:** [Open Architecture in Lucidchart](https://lucid.app/lucidchart/6ef90429-d6a5-4585-8b7f-2caaf728b0fc/edit?invitationId=inv_9b2b97cf-501b-429e-993d-a24c927fa54c&page=yofE0ycUHjJN#)  
+**Live Editable Database ERD:** [Open Database ERD in Lucidchart](https://lucid.app/lucidchart/68348039-5c22-4638-9fb4-e1b0b98b3018/edit?invitationId=inv_c1318404-183d-4820-9dcc-30364c92b0bf)  
+**Live Editable API Workflows Sequence:** [Open API Workflows in Lucidchart](https://lucid.app/lucidchart/08d5daad-11b0-4337-a650-e7fa3d01a6b4/edit?invitationId=inv_fbe6a186-bf56-4533-a8ca-676be1566c27)
 
 ---
 
