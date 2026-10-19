@@ -13,7 +13,7 @@
 - **Frontend Entrypoint:** `01_Blog/frontend/src/app/page.tsx` (Port 3001)
 - **Git Branch:** `main`
 - **GitHub Repository Link (Submission):** `https://github.com/talhaahmed303/weekend1-blog-platform` *(configured for evaluation review)*
-- **Demo Recording Link:** `https://drive.google.com/file/d/falconxoft-demo-01-blog-talha/view` *(accessible to HR and Junior 1/2 reviewer)*
+- **Demo Recording Link:** [Watch Blog Platform Demo Video](https://drive.google.com/file/d/1AW2mPPcViKTWvYFIVnQBvcWWYluvTLST/view?usp=sharing) *(accessible to HR and Junior 1/2 reviewer)*
 
 ---
 

@@ -137,18 +137,23 @@ export default function BlogDashboard() {
 
   const handleAuthSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const cleanUsername = authUsername.trim();
+    if (!cleanUsername) {
+      showToast('Please enter a username', true);
+      return;
+    }
     try {
       if (authMode === 'login') {
-        await api.login({ username: authUsername, password: authPassword });
+        await api.login({ username: cleanUsername, password: authPassword });
         showToast('Logged in successfully!');
       } else {
         await api.register({
-          username: authUsername,
+          username: cleanUsername,
           password: authPassword,
           role: authRole,
         });
         // Auto login
-        await api.login({ username: authUsername, password: authPassword });
+        await api.login({ username: cleanUsername, password: authPassword });
         showToast('Account created and logged in!');
       }
       setCurrentUser(api.getCurrentUser());
@@ -463,22 +468,20 @@ export default function BlogDashboard() {
             <div className="inline-flex p-1 bg-white rounded-xl shadow-sm border border-slate-200/80">
               <button
                 onClick={() => setActiveTab('feed')}
-                className={`px-4 py-2 rounded-lg text-xs font-bold transition flex items-center space-x-2 ${
-                  activeTab === 'feed'
+                className={`px-4 py-2 rounded-lg text-xs font-bold transition flex items-center space-x-2 ${activeTab === 'feed'
                     ? 'bg-slate-900 text-white shadow'
                     : 'text-slate-600 hover:text-slate-900'
-                }`}
+                  }`}
               >
                 <span>🌐</span>
                 <span>Community Feed (All Authors)</span>
               </button>
               <button
                 onClick={() => setActiveTab('my_posts')}
-                className={`px-4 py-2 rounded-lg text-xs font-bold transition flex items-center space-x-2 ${
-                  activeTab === 'my_posts'
+                className={`px-4 py-2 rounded-lg text-xs font-bold transition flex items-center space-x-2 ${activeTab === 'my_posts'
                     ? 'bg-indigo-600 text-white shadow'
                     : 'text-slate-600 hover:text-slate-900'
-                }`}
+                  }`}
               >
                 <span>📁</span>
                 <span>My Posts Studio (@{currentUser.username})</span>
@@ -984,11 +987,13 @@ export default function BlogDashboard() {
                 <label className="block text-xs font-bold text-slate-700 mb-1">Username</label>
                 <input
                   type="text"
+                  placeholder="e.g. Ahsan khan or ahsan_khan"
                   value={authUsername}
                   onChange={(e) => setAuthUsername(e.target.value)}
                   className="w-full p-2 text-xs rounded-lg border border-slate-300 focus:ring-2 focus:ring-sky-500"
                   required
                 />
+                <p className="text-[10px] text-slate-400 mt-1">Letters, numbers, spaces, and @/./+/-/_ allowed</p>
               </div>
 
               <div>

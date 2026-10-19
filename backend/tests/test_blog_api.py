@@ -78,6 +78,26 @@ def test_user_registration_success(api_client):
     assert User.objects.filter(username='new_writer').exists()
 
 @pytest.mark.django_db
+def test_user_registration_with_spaces_in_username(api_client):
+    url = reverse('auth_register')
+    payload = {
+        'username': 'Ahsan khan',
+        'password': 'SecurePassword@123',
+        'role': 'author'
+    }
+    response = api_client.post(url, payload, format='json')
+    assert response.status_code == 201
+    assert response.data['success'] is True
+    assert response.data['data']['username'] == 'Ahsan khan'
+    assert User.objects.filter(username='Ahsan khan').exists()
+
+    # Also verify login works with the username
+    login_url = reverse('auth_login')
+    login_res = api_client.post(login_url, {'username': 'Ahsan khan', 'password': 'SecurePassword@123'}, format='json')
+    assert login_res.status_code == 200
+    assert 'access' in login_res.data
+
+@pytest.mark.django_db
 def test_user_login_and_jwt_tokens(api_client, db_setup):
     url = reverse('auth_login')
     payload = {
