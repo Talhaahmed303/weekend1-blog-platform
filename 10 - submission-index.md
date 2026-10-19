@@ -32,11 +32,9 @@ All 10 required deliverables specified in Section 3 of the evaluation document h
 - [`openapi.yaml`](file:///d:/Weekend1_Talha%20Ahmed/01_Blog/openapi.yaml): Full OpenAPI 3.0 specification exported directly from Django REST Framework via `drf-spectacular`.
 - [`schema.sql`](file:///d:/Weekend1_Talha%20Ahmed/01_Blog/schema.sql): Clean PostgreSQL DDL script with table definitions, foreign keys, and indexes.
 - [`.env.example`](file:///d:/Weekend1_Talha%20Ahmed/01_Blog/.env.example): Environment variable template containing non-secret defaults.
-- [`lucidchart_diagrams/`](file:///d:/Weekend1_Talha%20Ahmed/01_Blog/lucidchart_diagrams/): Ready-to-import Lucidchart code and DDL files:
-  - [`01_ARCHITECTURE_DIAGRAM.mermaid`](file:///d:/Weekend1_Talha%20Ahmed/01_Blog/lucidchart_diagrams/01_ARCHITECTURE_DIAGRAM.mermaid): Complete 3-tier architecture Mermaid code.
-  - [`02_DATABASE_ERD.sql`](file:///d:/Weekend1_Talha%20Ahmed/01_Blog/lucidchart_diagrams/02_DATABASE_ERD.sql) & [`02_DATABASE_ERD.mermaid`](file:///d:/Weekend1_Talha%20Ahmed/01_Blog/lucidchart_diagrams/02_DATABASE_ERD.mermaid): PostgreSQL DDL & Mermaid code for 1-click ERD import.
-  - [`03_API_WORKFLOWS_SEQUENCE.mermaid`](file:///d:/Weekend1_Talha%20Ahmed/01_Blog/lucidchart_diagrams/03_API_WORKFLOWS_SEQUENCE.mermaid): Complete Success and 3 Failure path sequence workflows.
-  - [`LUCIDCHART_IMPORT_GUIDE.md`](file:///d:/Weekend1_Talha%20Ahmed/01_Blog/lucidchart_diagrams/LUCIDCHART_IMPORT_GUIDE.md): Step-by-step export & link guide.
+- [`02 - architecture.png`](file:///d:/Weekend1_Talha%20Ahmed/01_Blog/02%20-%20architecture.png): High-resolution system architecture diagram preview.
+- [`03 - database-design.png`](file:///d:/Weekend1_Talha%20Ahmed/01_Blog/03%20-%20database-design.png): High-resolution database ERD diagram preview.
+- [`04 - api-workflows.png`](file:///d:/Weekend1_Talha%20Ahmed/01_Blog/04%20-%20api-workflows.png): High-resolution API sequence workflows diagram preview.
 
 ---
 

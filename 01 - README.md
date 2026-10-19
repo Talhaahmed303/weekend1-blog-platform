@@ -139,36 +139,31 @@ python -m pytest 01_Blog/backend/tests/test_blog_api.py -v
 
 ## 6. Lucidchart Diagrams & Deliverables Index
 
-All diagrams required by the FalconXoft evaluation specification have been exported and provided in multiple formats for maximum defensibility:
+All diagrams required by the FalconXoft evaluation specification have been exported and provided in multiple formats for maximum defensibility. Clicking any preview diagram below will open the **live, editable Lucidchart workspace**:
 
 ### 6.1 System Architecture Diagram
-![System Architecture Diagram](lucidchart_diagrams/01_architecture_preview.png)
+[![System Architecture Diagram](02%20-%20architecture.png)](https://lucid.app/lucidchart/6ef90429-d6a5-4585-8b7f-2caaf728b0fc/edit?invitationId=inv_9b2b97cf-501b-429e-993d-a24c927fa54c&page=yofE0ycUHjJN#)
 - **Vector PDF Deliverable:** [`02 - architecture.pdf`](02%20-%20architecture.pdf)
-- **Editable Lucidchart URL:** [Open in Lucidchart](https://lucid.app/lucidchart/6ef90429-d6a5-4585-8b7f-2caaf728b0fc/edit?invitationId=inv_9b2b97cf-501b-429e-993d-a24c927fa54c&page=yofE0ycUHjJN#)
-- **Mermaid Source Backup:** `lucidchart_diagrams/01_ARCHITECTURE_DIAGRAM.mermaid`
+- **High-Res PNG Deliverable:** [`02 - architecture.png`](02%20-%20architecture.png)
+- **Editable Lucidchart URL:** [Open Architecture in Lucidchart](https://lucid.app/lucidchart/6ef90429-d6a5-4585-8b7f-2caaf728b0fc/edit?invitationId=inv_9b2b97cf-501b-429e-993d-a24c927fa54c&page=yofE0ycUHjJN#)
 
 ---
 
 ### 6.2 Database ERD & Relational Schema
-![Database ERD Diagram](lucidchart_diagrams/02_database_erd_preview.png)
+[![Database ERD Diagram](03%20-%20database-design.png)](https://lucid.app/lucidchart/68348039-5c22-4638-9fb4-e1b0b98b3018/edit?invitationId=inv_c1318404-183d-4820-9dcc-30364c92b0bf)
 - **Vector PDF Deliverable:** [`03 - database-design.pdf`](03%20-%20database-design.pdf)
-- **Editable Lucidchart URL:** [Open in Lucidchart](https://lucid.app/lucidchart/68348039-5c22-4638-9fb4-e1b0b98b3018/edit?invitationId=inv_c1318404-183d-4820-9dcc-30364c92b0bf)
-- **PostgreSQL 1-Click DDL:** [`schema.sql`](schema.sql) & `lucidchart_diagrams/02_DATABASE_ERD.sql`
-- **Mermaid Source Backup:** `lucidchart_diagrams/02_DATABASE_ERD.mermaid`
+- **High-Res PNG Deliverable:** [`03 - database-design.png`](03%20-%20database-design.png)
+- **Editable Lucidchart URL:** [Open Database ERD in Lucidchart](https://lucid.app/lucidchart/68348039-5c22-4638-9fb4-e1b0b98b3018/edit?invitationId=inv_c1318404-183d-4820-9dcc-30364c92b0bf)
+- **PostgreSQL 1-Click DDL:** [`schema.sql`](schema.sql)
 
 ---
 
 ### 6.3 API Workflows & Sequence Workflows
-![API Sequence Workflows Diagram](lucidchart_diagrams/03_api_workflows_preview.png)
+[![API Sequence Workflows Diagram](04%20-%20api-workflows.png)](https://lucid.app/lucidchart/08d5daad-11b0-4337-a650-e7fa3d01a6b4/edit?invitationId=inv_fbe6a186-bf56-4533-a8ca-676be1566c27)
 - **Vector PDF Deliverable:** [`04 - api-workflows.pdf`](04%20-%20api-workflows.pdf)
-- **Editable Lucidchart URL:** [Open in Lucidchart](https://lucid.app/lucidchart/08d5daad-11b0-4337-a650-e7fa3d01a6b4/edit?invitationId=inv_fbe6a186-bf56-4533-a8ca-676be1566c27)
+- **High-Res PNG Deliverable:** [`04 - api-workflows.png`](04%20-%20api-workflows.png)
+- **Editable Lucidchart URL:** [Open API Workflows in Lucidchart](https://lucid.app/lucidchart/08d5daad-11b0-4337-a650-e7fa3d01a6b4/edit?invitationId=inv_fbe6a186-bf56-4533-a8ca-676be1566c27)
 - **Complete OpenAPI 3.0 Contract:** [`openapi.yaml`](openapi.yaml)
-- **Mermaid Source Backup:** `lucidchart_diagrams/03_API_WORKFLOWS_SEQUENCE.mermaid`
-
----
-
-### 6.4 Step-by-Step Lucidchart Guide
-- Full documentation & export instructions: [`lucidchart_diagrams/LUCIDCHART_IMPORT_GUIDE.md`](lucidchart_diagrams/LUCIDCHART_IMPORT_GUIDE.md)
 
 ---
 
